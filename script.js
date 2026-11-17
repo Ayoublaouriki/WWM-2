@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     th: { playTitle:"ชมการต่อสู้",playHint:"คลิกเพื่อเล่น",resumeTitle:"ดูต่อ",retry:"คลิกอีกครั้ง",featureCollect:"รวบรวมแชมเปียน",featureTeam:"สร้างทีมของคุณ",featureBattle:"พิชิต PvE และ PvP",ctaTitle:"เล่นฟรีตอนนี้",ctaSub:"สร้างทีมที่แข็งแกร่งที่สุด",ctaNote:"เล่นฟรี · เข้าสู่เทเลเรีย",videoAria:"วิดีโอเกมเพลย์ RAID",featuresAria:"คุณสมบัติเกม",playAria:"เล่นวิดีโอ",resumeAria:"เล่นวิดีโอต่อ" }
   };
 
-  const requested = new URLSearchParams(location.search).get("lang");
-  const candidates = [requested, ...(navigator.languages || []), navigator.language].filter(Boolean);
-  const locale = candidates.map(value => value.toLowerCase().split("-")[0]).find(code => copy[code]) || "en";
+  const locale = "en";
   const t = copy[locale];
   document.documentElement.lang = locale;
   document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
@@ -123,3 +121,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   video.addEventListener("pause", () => { if (!video.ended) showPlayControl(); });
 });
+
