@@ -41,6 +41,7 @@ body::after{content:"";position:fixed;inset:0;z-index:20;pointer-events:none;opa
 .popup-cta[hidden]{display:none}
 .popup-cta.is-disabled{opacity:.42;filter:saturate(.35);pointer-events:none;animation:none}
 .popup-cta.is-ready{animation:popup-cta-heartbeat .95s ease-in-out infinite}
+.cta,.popup-cta{cursor:pointer}.popup-cta.is-disabled{cursor:not-allowed}
 .swipe-cta.is-verified{border-color:#DABC8E;box-shadow:0 0 24px rgba(218,188,142,.35)}
 .swipe-cta:not(.is-verified){animation:swipe-attention 1.6s ease-in-out infinite}
 .swipe-cta:not(.is-verified) .swipe-cta__handle{animation:swipe-handle-hint 1.6s ease-in-out infinite}
