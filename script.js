@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Preserve PropellerAds tracking values when the visitor follows the offer.
   // `lang` is only a local copy override and is intentionally not sent downstream.
   const queryParams = new URLSearchParams(window.location.search);
-  cta.href = offerUrl.toString();
+  cta.removeAttribute("href");
   const captchaBackdrop = document.querySelector("#captcha-backdrop");
   const captchaClose = document.querySelector("#captcha-close");
   captchaClose.addEventListener("click", () => {
