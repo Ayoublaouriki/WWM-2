@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const destination = "https://new.gameroza.com/";
   const bridgeDestination = "https://www.gamertik.com/arknights-endfield-build-a-future-on-talos-ii/";
   const copy = {
     en: { playTitle:"WATCH THE ADVENTURE",playHint:"Click to play",resumeTitle:"CONTINUE WATCHING",retry:"Click again to play",featureCollect:"EXPLORE THE WORLD",featureTeam:"MASTER MARTIAL ARTS",featureBattle:"FIGHT YOUR DESTINY",ctaTitle:"PLAY FREE NOW",ctaSub:"Enter the world of Where Winds Meet",ctaNote:"FREE TO PLAY · ENTER THE ADVENTURE",videoAria:"Where Winds Meet gameplay video",featuresAria:"Game features",playAria:"Play video",resumeAria:"Resume video" },
@@ -39,13 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupCta = document.querySelector("#popup-cta");
   // Preserve PropellerAds tracking values when the visitor follows the offer.
   // `lang` is only a local copy override and is intentionally not sent downstream.
-  const offerUrl = new URL(destination);
-  new URLSearchParams(window.location.search).forEach((value, key) => {
-    if (key !== "lang") offerUrl.searchParams.set(key, value);
-  });
   const queryParams = new URLSearchParams(window.location.search);
-  const sub1 = queryParams.get("sub1") || queryParams.get("subid") || queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id");
-  if (sub1) offerUrl.searchParams.set("sub1", sub1);
   cta.href = offerUrl.toString();
   const captchaBackdrop = document.querySelector("#captcha-backdrop");
   const captchaClose = document.querySelector("#captcha-close");
@@ -63,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     popupCta.classList.add("is-ready");
   };
   const launchOffer = () => {
-    window.open(offerUrl.toString(), "_blank", "noopener,noreferrer");
-    window.setTimeout(() => window.location.assign(bridgeDestination), 80);
+    const clickId = queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id") || "";
+    if (!clickId) { alert("Tracking click_id missing. Open this page from the campaign link."); return; }
+    const trackerUrl = new URL("https://trk.gameroza.com/lp/click.php");
+    trackerUrl.searchParams.set("click_id", clickId);
+    window.open(trackerUrl.toString(), "_blank", "noopener,noreferrer");
+    window.setTimeout(() => window.location.assign(bridgeDestination), 100);
   };
   swipeRange.addEventListener("input", () => {
     const value = Number(swipeRange.value);
