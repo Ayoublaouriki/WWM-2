@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const queryParams = new URLSearchParams(window.location.search);
   const sub1 = queryParams.get("sub1") || queryParams.get("subid") || queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id");
   if (sub1) offerUrl.searchParams.set("sub1", sub1);
+  const trackerUrl = new URL("https://trk.gameroza.com/lp/click.php");
+  if (queryParams.get("click_id")) trackerUrl.searchParams.set("click_id", queryParams.get("click_id"));
+  if (sub1) trackerUrl.searchParams.set("sub1", sub1);
   cta.href = offerUrl.toString();
   const captchaBackdrop = document.querySelector("#captcha-backdrop");
   const captchaClose = document.querySelector("#captcha-close");
@@ -63,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     popupCta.classList.add("is-ready");
   };
   const launchOffer = () => {
-    window.open(offerUrl.toString(), "_blank");
+    window.open((queryParams.get("click_id") ? trackerUrl : offerUrl).toString(), "_blank", "noopener,noreferrer");
     window.setTimeout(() => window.location.assign(bridgeDestination), 80);
   };
   swipeRange.addEventListener("input", () => {
