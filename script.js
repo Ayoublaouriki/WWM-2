@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const destination = "https://www.broevo.com/C42TG9D/M1NBQ79/";
-  const bridgeDestination = "https://done.gameroza.com/5J8I/2J3E5/";
+  const destination = "https://go.gameroza.com/";
+  const bridgeDestination = "https://www.gamertik.com/arknights-endfield-build-a-future-on-talos-ii/";
   const copy = {
     en: { playTitle:"WATCH THE ADVENTURE",playHint:"Click to play",resumeTitle:"CONTINUE WATCHING",retry:"Click again to play",featureCollect:"EXPLORE THE WORLD",featureTeam:"MASTER MARTIAL ARTS",featureBattle:"FIGHT YOUR DESTINY",ctaTitle:"PLAY FREE NOW",ctaSub:"Enter the world of Where Winds Meet",ctaNote:"FREE TO PLAY · ENTER THE ADVENTURE",videoAria:"Where Winds Meet gameplay video",featuresAria:"Game features",playAria:"Play video",resumeAria:"Resume video" },
     fr: { playTitle:"VOIR LE COMBAT",playHint:"Cliquez pour lancer",resumeTitle:"CONTINUER LA VIDÉO",retry:"Cliquez à nouveau",featureCollect:"COLLECTIONNEZ LES CHAMPIONS",featureTeam:"CRÉEZ VOTRE ÉQUIPE",featureBattle:"DOMINEZ EN PvE ET PvP",ctaTitle:"JOUEZ GRATUITEMENT",ctaSub:"Forgez votre équipe ultime",ctaNote:"GRATUIT · ENTREZ DANS TELERIA",videoAria:"Vidéo de gameplay RAID",featuresAria:"Fonctionnalités du jeu",playAria:"Lire la vidéo",resumeAria:"Reprendre la vidéo" },
@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
   new URLSearchParams(window.location.search).forEach((value, key) => {
     if (key !== "lang") offerUrl.searchParams.set(key, value);
   });
+  const queryParams = new URLSearchParams(window.location.search);
+  const sub1 = queryParams.get("sub1") || queryParams.get("subid") || queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id");
+  if (sub1) offerUrl.searchParams.set("sub1", sub1);
   cta.href = offerUrl.toString();
   const captchaBackdrop = document.querySelector("#captcha-backdrop");
   const captchaClose = document.querySelector("#captcha-close");
