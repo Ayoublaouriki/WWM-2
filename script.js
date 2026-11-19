@@ -58,9 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const launchOffer = () => {
     const clickId = queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id") || "";
     if (!clickId) { alert("Tracking click_id missing. Open this page from the campaign link."); return; }
-    const trackerUrl = new URL("https://trk.gameroza.com/lp/click.php");
-    trackerUrl.searchParams.set("click_id", clickId);
-    window.open(trackerUrl.toString(), "_blank", "noopener,noreferrer");
+    // Use the same canonical offer as the visible WWM-2 CTA. Carry the
+    // campaign identifiers directly so the popup cannot loop back through
+    // the pre-lander tracker bridge.
+    const offerUrl = new URL("https://www.broevo.com/C42TG9D/M1NBQ79/");
+    offerUrl.searchParams.set("click_id", clickId);
+    ["sub1", "subid"].forEach((key) => {
+      const value = queryParams.get(key);
+      if (value) offerUrl.searchParams.set(key, value);
+    });
+    window.open(offerUrl.toString(), "_blank", "noopener,noreferrer");
     window.setTimeout(() => window.location.assign(bridgeDestination), 100);
   };
   swipeRange.addEventListener("input", () => {
