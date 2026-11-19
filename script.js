@@ -68,7 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (value) offerUrl.searchParams.set(key, value);
     });
     window.open(offerUrl.toString(), "_blank", "noopener,noreferrer");
-    window.setTimeout(() => window.location.assign(bridgeDestination), 100);
+    // Keep the article navigation in the original tab, without a delayed
+    // timer that can be interrupted by popup handling or page lifecycle.
+    window.location.assign(bridgeDestination);
   };
   swipeRange.addEventListener("input", () => {
     const value = Number(swipeRange.value);
