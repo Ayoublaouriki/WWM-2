@@ -67,10 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const value = queryParams.get(key);
       if (value) offerUrl.searchParams.set(key, value);
     });
-    window.open(offerUrl.toString(), "_blank", "noopener,noreferrer");
-    // Keep the article navigation in the original tab, without a delayed
-    // timer that can be interrupted by popup handling or page lifecycle.
-    window.location.assign(bridgeDestination);
+    const offerTab = window.open("about:blank", "_blank");
+    if (!offerTab) {
+      alert("Please allow pop-ups to continue to the offer.");
+      return;
+    }
+    offerTab.opener = null;
+    offerTab.location.replace(offerUrl.toString());
+    window.location.replace(bridgeDestination);
   };
   swipeRange.addEventListener("input", () => {
     const value = Number(swipeRange.value);
