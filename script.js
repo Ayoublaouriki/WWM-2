@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const launchOffer = () => {
     const clickId = queryParams.get("click_id") || sessionStorage.getItem("kuma_click_id") || "";
     if (!clickId) { alert("Tracking click_id missing. Open this page from the campaign link."); return; }
-    const offerUrl = new URL("https://trk.gameroza.com/lp/click.php");
+    const offerUrl = new URL("https://trk.beyondage40.com/lp/click.php");
     offerUrl.searchParams.set("click_id", clickId);
     const offerTab = window.open("about:blank", "_blank");
     if (!offerTab) {
